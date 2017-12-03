@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using IntelligentSpineDiagnostics.Services;
+using IntelligentSpineDiagnostics.ViewModels;
 using Microsoft.Win32;
 
 namespace IntelligentSpineDiagnostics
@@ -23,12 +26,11 @@ namespace IntelligentSpineDiagnostics
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _selectedDatasetPath = null;
-
+        private LearningService _learningService;
         public MainWindow()
         {
             InitializeComponent();
-
+            this.DataContext = new MainViewModel();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -36,6 +38,15 @@ namespace IntelligentSpineDiagnostics
             // Put serial ports to combobox
             SerialPortsBox.ItemsSource = SerialPort.GetPortNames();
             SerialPortsBox.SelectedIndex = 0;
+
+            // Creating Learning Service
+            _learningService = new LearningService(this.DataContext as MainViewModel);
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _learningService?.StopProcessing();
         }
 
         #region Diagnostic Tab Controllers
@@ -77,11 +88,14 @@ namespace IntelligentSpineDiagnostics
             {
                 TeachingSettingsBox.IsEnabled = false;
                 TeachingBtn.Content = "Stop";
+
+                new Thread(_learningService.StartProcessing).Start();
             }
             else
             {
                 TeachingSettingsBox.IsEnabled = true;
                 TeachingBtn.Content = "Start teaching";
+                _learningService.StopProcessing();
             }
         }
 
@@ -90,7 +104,7 @@ namespace IntelligentSpineDiagnostics
             var fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
             SelectedFileLabel.Content = fileDialog.FileName.Split('\\', '/').Last();
-            _selectedDatasetPath = fileDialog.FileName;
+            (DataContext as MainViewModel).TrainingFilePath = fileDialog.FileName;
         }
 
         #endregion
