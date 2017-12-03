@@ -144,7 +144,7 @@ namespace IntelligentSpineDiagnostics.Services.NNLearning
             }
 
             // return squared error of the last layer divided by 2
-            return error / 2.0;
+            return error / layer.NeuronsCount;
         }
 
         private void CalculateUpdates(double[] input)
