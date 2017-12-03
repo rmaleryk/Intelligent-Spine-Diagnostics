@@ -1,4 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Threading;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Threading;
+using InteractiveDataDisplay.WPF;
 
 namespace IntelligentSpineDiagnostics.ViewModels
 {
@@ -12,6 +18,8 @@ namespace IntelligentSpineDiagnostics.ViewModels
         public double LearningErrorLimit { get; set; } = 0.1;
         public double EpochesLimit { get; set; } = 0;
         public string TrainingFilePath { get; set; } = "data.csv";
+        public LineGraph ErrorGraph { get; set; }
+        private MainWindow _mw;
         private double _epoches = 0;
         private double _averageError = 0;
 
@@ -30,9 +38,21 @@ namespace IntelligentSpineDiagnostics.ViewModels
             get { return _averageError; }
             set
             {
+                Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.SystemIdle,
+                    new Action(() =>
+                    {
+                        _mw.ErrorGraph.Points.Add(new Point(Epoches, AverageError));
+                    }));
+
                 _averageError = value;
                 OnPropertyChanged("AverageError");
             }
+        }
+
+        public MainViewModel(MainWindow mw)
+        {
+            _mw = mw;
         }
 
         protected void OnPropertyChanged(string propertyName)

@@ -61,7 +61,9 @@
                         </Grid>
                     </GroupBox>
                     <wpf:Chart BottomTitle="Epoches" LeftTitle="Error" Margin="244,10,10,10">
-                        <wpf:LineGraph x:Name="ErrorGraph" Description="Error" Stroke="Blue" StrokeThickness="3"/>
+                        <Grid Name="GraphLines">
+                            <wpf:LineGraph x:Name="ErrorGraph" Description="Error" Stroke="Blue" StrokeThickness="3"/>
+                        </Grid>
                     </wpf:Chart>
                 </Grid>
             </TabItem>
