@@ -76,6 +76,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\ActivationFunctions\IActivationFunction.cs" />
+    <Compile Include="Models\ActivationFunctions\SigmoidFunction.cs" />
+    <Compile Include="Models\Dataset.cs" />
+    <Compile Include="Models\Layer\ActivationLayer.cs" />
+    <Compile Include="Models\Layer\AbstractLayer.cs" />
+    <Compile Include="Models\Network\ActivationNetwork.cs" />
+    <Compile Include="Models\Network\AbstractNetwork.cs" />
+    <Compile Include="Models\Neuron\ActivationNeuron.cs" />
+    <Compile Include="Services\LearningService.cs" />
+    <Compile Include="Services\NNLearning\BackPropagationLearning.cs" />
+    <Compile Include="Services\NNLearning\ISupervisedLearning.cs" />
+    <Compile Include="Utils\CsvConverter.cs" />
+    <Compile Include="Utils\DoubleRange.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -90,6 +104,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Neuron\AbstractNeuron.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,5 +131,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

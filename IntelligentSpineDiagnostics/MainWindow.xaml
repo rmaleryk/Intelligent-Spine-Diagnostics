@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IntelligentSpineDiagnostics"
         xmlns:wpf="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
-        Title="Intelligent Spine Diagnostics" Height="459.211" Width="800.001" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="Intelligent Spine Diagnostics" Height="459.211" Width="800.001" ResizeMode="NoResize" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <TabControl Margin="5">
             <TabItem Header="Diagnostics">
@@ -36,15 +36,15 @@
                                 <ColumnDefinition Width="179*"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Learning Rate:" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="LearningRateBox" Height="23" Margin="94,14,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1"/>
+                            <TextBox x:Name="LearningRateBox" Height="23" Margin="94,14,10,0" Text="{Binding LearningRate}" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1" MaxLines="1"/>
                             <Label Content="Momentum:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="MomentumBox" Height="23" Margin="94,42,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1"/>
+                            <TextBox x:Name="MomentumBox" Height="23" Margin="94,42,10,0" Text="{Binding Momentum}" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1" MaxLines="1"/>
                             <Label Content="Sigmoid's Alpha:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="SigmAlphaBox" Height="23" Margin="94,70,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1"/>
+                            <TextBox x:Name="SigmAlphaBox" Height="23" Margin="94,70,10,0" Text="{Binding SigmoidsAlpha}" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1" MaxLines="1"/>
                             <Label Content="Learning error limit:" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="ErrorLimitBox" Height="23" Margin="94,98,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1"/>
+                            <TextBox x:Name="ErrorLimitBox" Height="23" Margin="94,98,10,0" Text="{Binding LearningErrorLimit}" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1" MaxLines="1"/>
                             <Label Content="Epoches limit:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="EpochesLimitBox" Height="23" Margin="94,126,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1"/>
+                            <TextBox x:Name="EpochesLimitBox" Height="23" Margin="94,126,10,0" Text="{Binding EpochesLimit}" VerticalAlignment="Top" VerticalContentAlignment="Center" PreviewTextInput="NumberValidationTextBox" Grid.Column="1" MaxLines="1"/>
                             <Button x:Name="BrowseBtn" Content="Browse" HorizontalAlignment="Left" Margin="94,164,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="BrowseBtn_Click" Grid.Column="1"/>
                             <Label Content="Teaching datasets:" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
                             <Label x:Name="SelectedFileLabel" Content="(Not selected)" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="98" Grid.ColumnSpan="2"/>
@@ -54,9 +54,9 @@
                     <GroupBox Header="Teaching" HorizontalAlignment="Left" Margin="10,251,0,5" Width="229">
                         <Grid>
                             <Label Content="Epoches:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                            <TextBox x:Name="EpochesBox" Height="23" Margin="132,6,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True"/>
+                            <TextBox x:Name="EpochesBox" Height="23" Margin="100,6,10,0" Text="{Binding Epoches}" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" MaxLines="1"/>
                             <Label Content="Average error:" HorizontalAlignment="Left" Margin="10,33,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-                            <TextBox x:Name="ErrorBox" Height="23" Margin="132,34,10,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True"/>
+                            <TextBox x:Name="ErrorBox" Height="23" Margin="100,34,10,0" Text="{Binding AverageError}" VerticalAlignment="Top" VerticalContentAlignment="Center" IsReadOnly="True" MaxLines="1"/>
                             <Button x:Name="TeachingBtn" Content="Start teaching" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="197" Height="32" Click="TeachingBtn_Click"/>
                         </Grid>
                     </GroupBox>
