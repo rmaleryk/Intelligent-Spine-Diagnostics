@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IntelligentSpineDiagnostics.Services;
 using IntelligentSpineDiagnostics.ViewModels;
+using InteractiveDataDisplay.WPF;
 using Microsoft.Win32;
 
 namespace IntelligentSpineDiagnostics
@@ -30,7 +31,7 @@ namespace IntelligentSpineDiagnostics
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+            this.DataContext = new MainViewModel(this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,7 +42,9 @@ namespace IntelligentSpineDiagnostics
 
             // Creating Learning Service
             _learningService = new LearningService(this.DataContext as MainViewModel);
-
+            
+            // Error Graph Initialization
+            ErrorGraph.PlotY(new double[] {0});
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -88,6 +91,9 @@ namespace IntelligentSpineDiagnostics
             {
                 TeachingSettingsBox.IsEnabled = false;
                 TeachingBtn.Content = "Stop";
+
+                // Error Graph Initialization
+                ErrorGraph.PlotY(new double[] { 0 });
 
                 new Thread(_learningService.StartProcessing).Start();
             }

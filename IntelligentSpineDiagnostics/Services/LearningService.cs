@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Threading;
 using IntelligentSpineDiagnostics.Models.ActivationFunctions;
 using IntelligentSpineDiagnostics.Models.Network;
 using IntelligentSpineDiagnostics.Services.NNLearning;
 using IntelligentSpineDiagnostics.Utils;
 using IntelligentSpineDiagnostics.ViewModels;
+using InteractiveDataDisplay.WPF;
 
 namespace IntelligentSpineDiagnostics.Services
 {
@@ -63,7 +66,6 @@ namespace IntelligentSpineDiagnostics.Services
                     double error = teacher.RunEpoch(dataset.Inputs, dataset.Outputs);
                     errorsList.Add(error);
 
-
                     // show current iteration & error
                     viewModel.Epoches = iteration;
                     viewModel.AverageError = error;
@@ -77,13 +79,12 @@ namespace IntelligentSpineDiagnostics.Services
                     if (iteration > viewModel.EpochesLimit && viewModel.EpochesLimit > 0)
                         break;
                 }
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-
-
 
         }
 
